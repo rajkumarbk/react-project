@@ -1,23 +1,18 @@
-import Navbar from "./components/Navbar.jsx"
-import Hero from "./components/Hero.jsx"
-import About from "./components/About.jsx"
-import Skills from "./components/Skills.jsx"
-import Projects from "./components/Projects.jsx"
-import Experience from "./components/Experience.jsx"
-import Contact from "./components/Contact.jsx"
-import "./App.css"
+import { Routes, Route } from "react-router-dom"
+import Home from "./pages/Home"
+import AboutPage from "./pages/About"
+import Projects from "./components/Projects"
+import Experience from "./components/Experience"
 
 function App() {
   return (
-    <>
-      <Navbar />
-      <Hero />
-      <About />
-      <Skills />
-      <Projects />
-      <Experience />
-      <Contact />
-    </>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/about" element={<AboutPage />} />
+      <Route path="/contact" element={<ContactPage />} />
+      <Route path="/projects" element={<Projects />} />
+      <Route path="/experience" element={<Experience />} />
+    </Routes>
   )
 }
 
