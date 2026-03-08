@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { 
@@ -85,6 +85,7 @@ function App() {
 const Navbar = ({ isMenuOpen, setIsMenuOpen }) => {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate(); // Add this line
 
   useEffect(() => {
     const handleScroll = () => {
@@ -115,7 +116,7 @@ const Navbar = ({ isMenuOpen, setIsMenuOpen }) => {
           className="logo"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
-          onClick={() => window.location.href = '/'}
+          onClick={() => navigate('/')} // Change this line
         >
           <span className="logo-text">Portfolio</span>
         </motion.div>
@@ -130,9 +131,7 @@ const Navbar = ({ isMenuOpen, setIsMenuOpen }) => {
               whileTap={{ scale: 0.95 }}
               onClick={(e) => {
                 e.preventDefault();
-                window.history.pushState({}, '', item.path);
-                const navigationEvent = new PopStateEvent('popstate');
-                window.dispatchEvent(navigationEvent);
+                navigate(item.path); // Change this line
                 setIsMenuOpen(false);
               }}
             >
@@ -157,11 +156,7 @@ const Navbar = ({ isMenuOpen, setIsMenuOpen }) => {
 
 // Hero Section (updated with proper navigation)
 const Hero = ({ scale }) => {
-  const navigate = (path) => {
-    window.history.pushState({}, '', path);
-    const navigationEvent = new PopStateEvent('popstate');
-    window.dispatchEvent(navigationEvent);
-  };
+  const navigate = useNavigate(); // Add this line
 
   return (
     <section id="home" className="hero">
@@ -228,7 +223,7 @@ const Hero = ({ scale }) => {
             whileTap={{ scale: 0.95 }}
             onClick={(e) => {
               e.preventDefault();
-              navigate('/contact');
+              navigate('/contact'); // Change this line
             }}
           >
             Get In Touch
@@ -240,7 +235,7 @@ const Hero = ({ scale }) => {
             whileTap={{ scale: 0.95 }}
             onClick={(e) => {
               e.preventDefault();
-              navigate('/projects');
+              navigate('/projects'); // Change this line
             }}
           >
             View Projects
@@ -730,11 +725,7 @@ const Contact = () => {
 
 // Footer
 const Footer = () => {
-  const navigate = (path) => {
-    window.history.pushState({}, '', path);
-    const navigationEvent = new PopStateEvent('popstate');
-    window.dispatchEvent(navigationEvent);
-  };
+  const navigate = useNavigate(); // Add this line
 
   return (
     <footer className="footer">
@@ -747,6 +738,7 @@ const Footer = () => {
           <a href="/" onClick={(e) => { e.preventDefault(); navigate('/'); }}>Home</a>
           <a href="/about" onClick={(e) => { e.preventDefault(); navigate('/about'); }}>About</a>
           <a href="/skills" onClick={(e) => { e.preventDefault(); navigate('/skills'); }}>Skills</a>
+          <a href="/experience" onClick={(e) => { e.preventDefault(); navigate('/experience'); }}>Experience</a>
           <a href="/projects" onClick={(e) => { e.preventDefault(); navigate('/projects'); }}>Projects</a>
           <a href="/contact" onClick={(e) => { e.preventDefault(); navigate('/contact'); }}>Contact</a>
         </div>
