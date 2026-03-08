@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { 
@@ -27,29 +28,63 @@ import {
   SiFigma
 } from 'react-icons/si';
 import './App.css';
+import NotFound from './NotFound.jsx';
+
+// ScrollToTop component to handle scroll on route change
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+};
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { scrollYProgress } = useScroll();
   const scale = useTransform(scrollYProgress, [0, 1], [1, 0.8]);
-  
+  const location = useLocation();
+
+  // Close mobile menu when route changes
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [location]);
+
   return (
     <div className="app">
+      <ScrollToTop />
       <Navbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
-      <Hero scale={scale} />
-      <About />
-      <Skills />
-      <Experience />
-      <Projects />
-      <Contact />
+      
+      <Routes>
+        <Route path="/" element={
+          <>
+            <Hero scale={scale} />
+            <About />
+            <Skills />
+            <Experience />
+            <Projects />
+            <Contact />
+          </>
+        } />
+        <Route path="/about" element={<About />} />
+        <Route path="/skills" element={<Skills />} />
+        <Route path="/experience" element={<Experience />} />
+        <Route path="/projects" element={<Projects />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+      
       <Footer />
     </div>
   );
 }
 
-// Navbar Component
+// Navbar Component with React Router Links
 const Navbar = ({ isMenuOpen, setIsMenuOpen }) => {
   const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -58,6 +93,15 @@ const Navbar = ({ isMenuOpen, setIsMenuOpen }) => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const navItems = [
+    { path: '/', label: 'Home' },
+    { path: '/about', label: 'About' },
+    { path: '/skills', label: 'Skills' },
+    { path: '/experience', label: 'Experience' },
+    { path: '/projects', label: 'Projects' },
+    { path: '/contact', label: 'Contact' }
+  ];
 
   return (
     <motion.nav 
@@ -71,21 +115,28 @@ const Navbar = ({ isMenuOpen, setIsMenuOpen }) => {
           className="logo"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
+          onClick={() => window.location.href = '/'}
         >
           <span className="logo-text">Portfolio</span>
         </motion.div>
 
         <div className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
-          {['Home', 'About', 'Skills', 'Experience', 'Projects', 'Contact'].map((item) => (
+          {navItems.map((item) => (
             <motion.a
-              key={item}
-              href={`#${item.toLowerCase()}`}
-              className="nav-link"
+              key={item.path}
+              href={item.path}
+              className={`nav-link ${location.pathname === item.path ? 'active' : ''}`}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => setIsMenuOpen(false)}
+              onClick={(e) => {
+                e.preventDefault();
+                window.history.pushState({}, '', item.path);
+                const navigationEvent = new PopStateEvent('popstate');
+                window.dispatchEvent(navigationEvent);
+                setIsMenuOpen(false);
+              }}
             >
-              {item}
+              {item.label}
             </motion.a>
           ))}
         </div>
@@ -104,8 +155,14 @@ const Navbar = ({ isMenuOpen, setIsMenuOpen }) => {
   );
 };
 
-// Hero Section
+// Hero Section (updated with proper navigation)
 const Hero = ({ scale }) => {
+  const navigate = (path) => {
+    window.history.pushState({}, '', path);
+    const navigationEvent = new PopStateEvent('popstate');
+    window.dispatchEvent(navigationEvent);
+  };
+
   return (
     <section id="home" className="hero">
       <div className="hero-background">
@@ -127,7 +184,6 @@ const Hero = ({ scale }) => {
           transition={{ duration: 0.5, delay: 0.2 }}
         >
           <div className="hero-image">
-            {/* Add your image here */}
             <span className="initials">JD</span>
           </div>
         </motion.div>
@@ -166,18 +222,26 @@ const Hero = ({ scale }) => {
           transition={{ duration: 0.5, delay: 1 }}
         >
           <motion.a 
-            href="#contact" 
+            href="/contact"
             className="btn btn-primary"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            onClick={(e) => {
+              e.preventDefault();
+              navigate('/contact');
+            }}
           >
             Get In Touch
           </motion.a>
           <motion.a 
-            href="#projects" 
+            href="/projects"
             className="btn btn-secondary"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            onClick={(e) => {
+              e.preventDefault();
+              navigate('/projects');
+            }}
           >
             View Projects
           </motion.a>
@@ -562,7 +626,6 @@ const Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add your form submission logic here
     console.log('Form submitted:', formData);
     alert('Message sent successfully!');
     setFormData({ name: '', email: '', message: '' });
@@ -667,6 +730,12 @@ const Contact = () => {
 
 // Footer
 const Footer = () => {
+  const navigate = (path) => {
+    window.history.pushState({}, '', path);
+    const navigationEvent = new PopStateEvent('popstate');
+    window.dispatchEvent(navigationEvent);
+  };
+
   return (
     <footer className="footer">
       <div className="container">
@@ -675,11 +744,11 @@ const Footer = () => {
         </p>
         
         <div className="footer-links">
-          <a href="#home">Home</a>
-          <a href="#about">About</a>
-          <a href="#skills">Skills</a>
-          <a href="#projects">Projects</a>
-          <a href="#contact">Contact</a>
+          <a href="/" onClick={(e) => { e.preventDefault(); navigate('/'); }}>Home</a>
+          <a href="/about" onClick={(e) => { e.preventDefault(); navigate('/about'); }}>About</a>
+          <a href="/skills" onClick={(e) => { e.preventDefault(); navigate('/skills'); }}>Skills</a>
+          <a href="/projects" onClick={(e) => { e.preventDefault(); navigate('/projects'); }}>Projects</a>
+          <a href="/contact" onClick={(e) => { e.preventDefault(); navigate('/contact'); }}>Contact</a>
         </div>
       </div>
     </footer>
