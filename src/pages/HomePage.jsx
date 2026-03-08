@@ -32,7 +32,7 @@ const HomePage = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             <div className="hero-image">
-              <span className="initials">JD</span>
+              <span className="initials">RBK</span>
             </div>
           </motion.div>
 
@@ -42,7 +42,7 @@ const HomePage = () => {
             animate={heroInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.4 }}
           >
-            Hi, I'm <span className="gradient-text">John Doe</span>
+            Hi, I'm <span className="gradient-text">Ràjkumár Bısħwakarma</span>
           </motion.h1>
 
           <motion.h2 
@@ -51,7 +51,7 @@ const HomePage = () => {
             animate={heroInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.6 }}
           >
-            Full Stack Developer & UI/UX Enthusiast
+            IT Engineer | Web Developer | Tech Enthusiast
           </motion.h2>
 
           <motion.p 
@@ -144,7 +144,7 @@ const HomePage = () => {
         <div className="container">
           <div className="quick-about-content">
             <h2>Who Am I?</h2>
-            <p>A passionate developer with 5+ years of experience creating web solutions. I love turning ideas into reality through code.</p>
+            <p>A passionate developer with 2+ years of experience creating web solutions. I love turning ideas into reality through code.</p>
             <div className="stats-mini">
               <div className="stat-mini">
                 <span className="stat-number">50+</span>
@@ -170,7 +170,7 @@ const HomePage = () => {
       <section className="contact-cta">
         <div className="container">
           <h2>Let's Work Together</h2>
-          <p>Have a project in mind? I'd love to hear about it.</p>
+          <p>Have a project in mind? I'd love to hear about it.</p><br />
           <a href="/contact" className="btn btn-primary" onClick={(e) => { e.preventDefault(); navigate('/contact'); }}>
             Start Conversation
           </a>

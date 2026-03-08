@@ -54,7 +54,7 @@ const ContactPage = () => {
                   <FaEnvelope className="contact-icon-large" />
                   <div>
                     <h3>Email</h3>
-                    <a href="mailto:john.doe@example.com">john.doe@example.com</a>
+                    <a href="mailto:rajkumarbk100@gmail.com">rajkumarbk100@gmail.com</a>
                     <p>Response within 24 hours</p>
                   </div>
                 </div>
@@ -63,7 +63,7 @@ const ContactPage = () => {
                   <FaPhone className="contact-icon-large" />
                   <div>
                     <h3>Phone</h3>
-                    <a href="tel:+15551234567">+1 (555) 123-4567</a>
+                    <a href="tel:+966595985302">+966 595 985 302</a>
                     <p>Mon-Fri, 9am-6pm PST</p>
                   </div>
                 </div>
@@ -72,7 +72,7 @@ const ContactPage = () => {
                   <FaMapMarkerAlt className="contact-icon-large" />
                   <div>
                     <h3>Location</h3>
-                    <p>San Francisco, CA</p>
+                    <p>Riyadh, Saudi Arabia</p>
                     <p>Available for remote work worldwide</p>
                   </div>
                 </div>

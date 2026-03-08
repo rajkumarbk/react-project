@@ -119,7 +119,7 @@ const Footer = () => {
     <footer className="footer">
       <div className="container">
         <p className="copyright">
-          &copy; {new Date().getFullYear()} John Doe. All rights reserved.
+          &copy; {new Date().getFullYear()} Ràjkumár Bısħwakarma. All rights reserved.
         </p>
         
         <div className="footer-links">
