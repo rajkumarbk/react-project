@@ -99,7 +99,6 @@ body {
   -moz-text-fill-color: transparent;
   -ms-text-fill-color: transparent;
   -o-text-fill-color: transparent;
-  text-fill-color: transparent;
 }
 
 .nav-menu {
@@ -381,7 +380,6 @@ body {
   -moz-text-fill-color: transparent;
   -ms-text-fill-color: transparent;
   -o-text-fill-color: transparent;
-  text-fill-color: transparent;
 }
 
 .hero-subtitle {
@@ -569,7 +567,6 @@ section {
   -moz-text-fill-color: transparent;
   -ms-text-fill-color: transparent;
   -o-text-fill-color: transparent;
-  text-fill-color: transparent;
   margin-bottom: 0.5rem;
 }
 
@@ -661,7 +658,6 @@ section {
   -moz-text-fill-color: transparent;
   -ms-text-fill-color: transparent;
   -o-text-fill-color: transparent;
-  text-fill-color: transparent;
 }
 
 .skills-list {
@@ -1303,7 +1299,7 @@ section {
     .logo-text,
     .stat-value,
     .category-title {
-      -webkit-background-clip: text;
+      background-clip: text;
       -webkit-text-fill-color: transparent;
     }
   }
