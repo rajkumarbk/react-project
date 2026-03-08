@@ -49,7 +49,7 @@ const ExperiencePage = () => {
 
   const education = [
     {
-      degree: 'M.S. in Computer Science',
+      degree: 'Bachelor of Engineering in Information Technology',
       institution: 'Stanford University',
       period: '2017 - 2019',
       gpa: '3.9/4.0'
